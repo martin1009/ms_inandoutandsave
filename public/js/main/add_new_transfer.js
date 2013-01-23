@@ -1,10 +1,10 @@
 $(document).ready(function(){
-	//生成入库单号
+	//生成调库单号
 	var rand_number = Math.floor(Math.random()*10);
-	$("input[name='purchase_order_number']").val("dk-"+_year+_month+_day+_hours+_minute+_sec+rand_number);
+	$("input[name='transfer_order_number']").val("dk-"+_year+_month+_day+_hours+_minute+_sec+rand_number);
 	
 	//日期单击事件
-	$("input[name='purchase_date']").click(function(){
+	$("input[name='transfer_date']").click(function(){
 		new Calendar().show(this);
 	});
 	
@@ -24,6 +24,27 @@ $(document).ready(function(){
 		}
 	});
 	
+	//商品数量框失去焦点事件
+	$("input[name='num[]']").live("blur",function(){
+		//商品数量超过库存数量时提示
+		var id_str = $(this).attr("id");
+		var id = id_str.match(/\d+/g);
+		if($(this).val() > parseInt($("#out_warehouse_"+id).html())){
+			alert("商品数量超过库存数量！");
+			$(this).val("");
+			$(this).focus();
+			return false;
+		}
+		//算出整单商品数量
+		var total_num = 0;
+		$("input[name='num[]']").each(function(){
+			if($(this).val() != ""){
+				total_num += parseInt($(this).val());
+			}
+		});
+		$("input[name='commodity_num']").val(total_num);
+	});
+	
 	//删除商品事件
 	$("a[name='del_commodity']").live("click",function(){
 		var id_str = $(this).attr("id");
@@ -37,12 +58,6 @@ $(document).ready(function(){
 			commodity_num += parseInt($(this).val());
 		});
 		$("input[name='commodity_num']").val(commodity_num);
-		//整单金额
-		var total_price = 0;
-		$("td[name='total']").each(function(){
-			total_price += parseFloat($(this).html());
-		});
-		$("input[name='total_price']").val(total_price);
 	});
 	
 	//添加商品单击事件
@@ -62,21 +77,8 @@ $(document).ready(function(){
 	//提交订单
 	$("input[name='storage_submit']").click(function(){
 		//日期防空验证
-		if($("input[name='purchase_date']").val() == ""){
+		if($("input[name='transfer_date']").val() == ""){
 			alert("日期不能为空！");
-			return false;
-		}
-		//单价防空验证
-		var purchase_price = true;
-		$("input[name='purchase_price[]']").each(function(){
-			if($(this).val() == ""){
-				purchase_price = false;
-				alert("商品单价不能为空！");
-				$(this).focus();
-				return false;
-			}
-		});
-		if(!purchase_price){
 			return false;
 		}
 		//数量防空验证
@@ -93,6 +95,6 @@ $(document).ready(function(){
 			return false;
 		}
 		//提交表单
-		$("form[name='add_storage_order_form']").submit();
+		$("form[name='add_transfer_order_form']").submit();
 	});
 });

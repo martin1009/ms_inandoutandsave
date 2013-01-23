@@ -35,5 +35,15 @@
 			);
 			$this->load->view("main/open_transfer_commodity",$commodity_data);
 		}
+		/*
+		 * @abstract add_order 执行添加调库单
+		 * @access public
+		 * */
+		public function add_order(){
+			echo "<pre>";
+			print_r($_POST);
+			echo "</pre>";
+			
+		}
 	}
 ?>

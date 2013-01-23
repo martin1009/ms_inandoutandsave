@@ -47,8 +47,8 @@ $(document).ready(function(){
 			commodity_str += "<td>"+$("#commodity_number_"+id).html()+"</td>";
 			commodity_str += "<td>"+$("#commodity_name_"+id).html()+"</td>";
 			commodity_str += "<td align='center'>"+$("#dan_wei_"+id).html()+"</td>";
-			commodity_str += "<td style='width:65px;padding:0px;'><input type='hidden' name='commodity_id[]' value='"+id+"' /><input type='text' class='input_6' id='inventory_number_"+id+"' name='inventory_number[]' /></td>";
-			commodity_str += "<td align='right'>"+$("#inventory_number_"+id).html()+"</td>";
+			commodity_str += "<td style='width:65px;padding:0px;'><input type='hidden' name='commodity_id[]' value='"+id+"' /><input type='text' class='input_6' id='inventory_number_"+id+"' name='num[]' /></td>";
+			commodity_str += "<td align='right' id='out_warehouse_"+id+"'>"+$("#inventory_number_"+id).html()+"</td>";
 			commodity_str += "<td align='center'><a href='javascript:void();' name='del_commodity' id='del_"+id+"'>删除</a></td>";
 			commodity_str += "</tr>";
 			$("#tick_tr",opener.document).before(commodity_str);

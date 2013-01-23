@@ -180,7 +180,25 @@ CREATE TABLE `ms_gift_info` (
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '礼品表'
 
 
+调库单表ms_transfer_bill:
+CREATE TABLE `ms_transfer_bill` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
+	`transfer_date` date NOT NULL COMMENT '单据日期',
+	`transfer_order_number` VARCHAR( 16 ) NOT NULL COMMENT '入库单号',
+	`out_warehouse_id` INT NOT NULL COMMENT '出库仓库ID号',
+	`in_warehouse_id` INT NOT NULL COMMENT '入库仓库ID号',
+	`commodity_num` INT( 10 ) NOT NULL COMMENT '合计整单商品数量',
+	`remark` TEXT NULL COMMENT '备注'
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '调库单表'
 
+
+调库单明细表ms_detail_transfer_bill:
+CREATE TABLE `ms_detail_transfer_bill` (
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
+	`transfer_bill_id` INT NOT NULL COMMENT '所属进货单ID号',
+	`commodity_id` INT NOT NULL COMMENT '商品ID号',
+	`commodity_num` INT( 10 ) NOT NULL COMMENT '数量'
+) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '调库单明细表'
 
 
 

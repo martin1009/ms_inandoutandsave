@@ -101,12 +101,12 @@ for(i=0;i<cs.length;i++){
           			<div class="div_title">
           				<span>新增调库单</span>
           			</div>
-          			<form name="add_storage_order_form" action="<?=site_url("main/add_storage_order/add_order");?>" method="post">
+          			<form name="add_transfer_order_form" action="<?=site_url("main/add_new_transfer/add_order");?>" method="post">
           			<div class="div_content">
           				<div class="div_content_title">
 	          				<ul>
-	          					<li>调库单号：<input type='text' name='purchase_order_number' class='input_1' readonly="readonly" /></li>
-	          					<li>日　期：<input type='text' name='purchase_date' readonly="readonly" class='input_1' /></li>
+	          					<li>调库单号：<input type='text' name='transfer_order_number' class='input_1' readonly="readonly" /></li>
+	          					<li>日　期：<input type='text' name='transfer_date' readonly="readonly" class='input_1' /></li>
 	          					<li>从：<select name='out_warehouse_id' style='width:120px;'>
 	          								<?php
 	          									if($warehouse_res){

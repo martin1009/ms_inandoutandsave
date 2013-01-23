@@ -8,7 +8,7 @@ var _day = _date.getDate();  //日
 if(_day < 10){
 	_day = "0"+_day;
 }
-var _hours = parseInt(_date.getHours())+1;  //小时
+var _hours = parseInt(_date.getHours());  //小时
 if(_hours < 10){
 	_hours = "0"+_hours;
 }
