@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+
+.div_1{
+	margin:10px;
+}
+
+.div_title{
+	text-align:center;
+	border-bottom:2px solid #D2EA9E;
+}
+
+.div_title span{
+	font-size:20px;
+}
+
+.ul_1{
+	margin-top:10px;
+	margin-left:10px;
+	list-style-type: none;
+}
+
+.ul_1 li{
+	height:25px;
+}
+
+.input_1{
+	width:150px;
+	border:none;
+	background:none;
+	border-bottom:1px solid #D2EA9E;
+}
+
+.textarea_1{
+	width:510px;
+	height:150px;
+}
+
+.span_1{
+	color:#999999;
+}

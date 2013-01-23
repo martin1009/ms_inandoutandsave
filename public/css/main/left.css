@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+*{
+	font-size:12px;
+	margin:0px;
+	padding:0px;
+}
+
+.dt_1{
+	height:20px;
+	margin-left:15px;
+	margin-top:5px;
+	background:url("../../../public/images/main/car.png") no-repeat 0px 2px;
+}
+
+.dt_1 span,.dt_2 span{
+	margin-left:22px;
+	line-height:20px;
+}
+
+.dt_2{
+	height:20px;
+	margin-left:15px;
+	margin-top:5px;
+	background:url("../../../public/images/main/system.png") no-repeat 0px 2px;
+}
+
+.dd_1{
+	margin-left:25px;
+	background:url("../../../public/images/main/shu_san_dian.png") no-repeat 0px 2px;
+}
+
+.dd_2{
+	margin-left:25px;
+	background:url("../../../public/images/main/shu_guai_dian.png") no-repeat 0px 2px;
+}
+
+.dd_3{
+	margin-left:25px;
+	background:url("../../../public/images/main/shu_san_dian.png") no-repeat 0px 2px;
+}
+
+.dd_div_1{
+	height:20px;
+	background:url("../../../public/images/main/shu_jia.png") no-repeat 15px 6px;
+}
+
+.dd_div_1_jian{
+	height:20px;
+	background:url("../../../public/images/main/shu_jian.png") no-repeat 15px 6px;
+}
+
+.dd_div_1 span,.dd_div_1_jian span{
+	margin-left:28px;
+	line-height:20px;
+}
+
+.ul_1{
+	display:none;
+	list-style-type:none;
+}
+
+.li_1{
+	height:20px;
+	background:url("../../../public/images/main/shu_zhi_dian.png") no-repeat 0px 0px;
+}
+
+.ul_1 li span{
+	margin-left:15px;
+	line-height:20px;
+}
+
+.li_div_1{
+	height:20px;
+	margin-left:19px;
+	background:url("../../../public/images/main/shu_san_dian.png") no-repeat 0px 0px;
+}
+
+.li_div_2{
+	height:20px;
+	margin-left:19px;
+	background:url("../../../public/images/main/shu_guai_dian.png") no-repeat 0px 2px;
+}
+
+.dd_div_2{
+	height:20px;
+}
+
+.dd_div_2 span{
+	margin-left:15px;
+	line-height:20px;
+}

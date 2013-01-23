@@ -1,0 +1,60 @@
+﻿美思进销存
+
+	一.页面结构:
+
+		新增销售单：new_sales_order.php
+
+		新增退货单：newReturnGoods.php
+
+		商品销售记录：commoditySalesRecords.php
+
+		新增入库单：new_storage_order.php
+
+		查看所有商品库存：view_commodity_warehouse.php
+		
+		期初库存录入：initial_input.php
+
+		商品入库记录：commodityStorageRecord.php
+
+		商品调库管理：commodityMobilization.php
+
+		添加新员工资料：add_new_employee.php
+
+		查看所有员工资料：view_employee_information.php
+		
+		添加新商品：add_new_commodity.php
+
+		查看所有商品资料：view_commodity_information.php
+
+		查看所有仓库资料：view_warehouse_information.php
+		
+		添加新会员资料：add_new_member.php			//新加(姓名，电话，生日，会员卡卡号，办卡时间，消费记录)
+		
+		查看所有会员资料：view_member_information.php			//新加
+		
+		礼品资料：giftInfo.php					//新加
+
+		系统用户管理：allUsers.php
+		
+		角色权限管理：roleJurisdiction.php
+
+		系统工作日志：systemLog.php
+
+		修改用户名密码：modifyUserAndPassword.php
+		
+		公告管理：editAnnouncement.php			//新加
+		
+		退出系统：quit.php
+
+	二.
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
