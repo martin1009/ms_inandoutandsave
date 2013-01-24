@@ -156,19 +156,49 @@ CREATE PROCEDURE storage_commodity(
 )
 BEGIN
 	DECLARE res TINYINT(1);
-	-- 查询此仓库中是否已经存在此商品
-	SET res = SELECT COUNT(*) FROM `ms_stock_information` 
-	WHRER `commodity_id` = _commodity_id AND 
+
+	SELECT COUNT(*) INTO res FROM `ms_stock_information`
+	WHERE `commodity_id` = _commodity_id AND
 	`warehouse_id` = _warehouse_id;
-	-- 判断
+
 	IF res > 0 THEN
-		UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number`+_inventory_number 
-		where `commodity_id` = _commodity_id and AND `warehouse_id` = _warehouse_id;
+		UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number`+_inventory_number
+		WHERE `commodity_id` = _commodity_id AND `warehouse_id` = _warehouse_id;
 	ELSE
-		INSERT INTO `ms_stock_information` (`id`,`commodity_id`,`warehouse_id`,`position`,`inventory_number`) 
+		INSERT INTO `ms_stock_information` (`id`,`commodity_id`,`warehouse_id`,`position`,`inventory_number`)
 		VALUES (NULL,_commodity_id,_warehouse_id,'',_inventory_number);
 	END IF;
-END;
+END//
+
+//调库单存储过程
+CREATE PROCEDURE transfer_order(
+	--出货仓库ID号
+	IN out_warehouse_id INT,
+	--入货仓库ID号
+	IN in_warehouse_id INT,
+	--商品ID
+	IN _commodity_id INT,
+	--调动数量
+	IN _num INT
+)
+BEGIN
+	--更新出货仓库数量
+	UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number` - _num 
+	WHERE `warehouse_id` = out_warehouse_id AND `commodity_id` = _commodity_id;
+	--更新入货仓库数量
+	--检查此商品是否已经存在入货仓库
+	DECLARE res TINYINT(1);
+	SELECT COUNT(*) INTO res FROM `ms_stock_information` 
+	WHERE `warehouse_id` = in_warehouse_id AND `commodity_id` = _commodity_id;
+	--执行更新
+	IF res > 0 THEN
+		UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number` + _num 
+		WHERE `commodity_id` = _commodity_id AND `warehouse_id` = in_warehouse_id;
+	ELSE
+		INSERT INTO `ms_stock_information` (`id`,`commodity`,`warehouse_id`,`position`,`inventory_number`) 
+		VALUES (NULL,_commodity_id,_warehouse_id,'',_inventory_number);
+	END IF;
+END//
 
 
 礼品表ms_gift_info:
@@ -195,7 +225,7 @@ CREATE TABLE `ms_transfer_bill` (
 调库单明细表ms_detail_transfer_bill:
 CREATE TABLE `ms_detail_transfer_bill` (
 	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`transfer_bill_id` INT NOT NULL COMMENT '所属进货单ID号',
+	`transfer_bill_id` INT NOT NULL COMMENT '所属调库单ID号',
 	`commodity_id` INT NOT NULL COMMENT '商品ID号',
 	`commodity_num` INT( 10 ) NOT NULL COMMENT '数量'
 ) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '调库单明细表'

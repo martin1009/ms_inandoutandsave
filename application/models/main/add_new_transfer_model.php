@@ -62,5 +62,37 @@
 			}
 			return false;
 		}
+		/*
+		 * @abstract add_transfer_order 添加调库单基本信息
+		 * @param $transfer_order_data 调库单基本数据
+		 * @return int 调库单ID号
+		 * @access public
+		 * */
+		public function add_transfer_order($transfer_order_data){
+			if($this->db->insert($transfer_order_data)){
+				return mysql_insert_id();
+			}
+			return false;
+		}
+		/*
+		 * @abstract add_transfer_detail_order 添加调库单详细信息
+		 * @param $transfer_detail_order_data 调库单详细数据
+		 * @return bool
+		 * @access public
+		 * */
+		public function add_transfer_detail_order($transfer_detail_order_data){
+			$transfer_detail_order_str = "insert into `ms_detail_transfer_bill` (`id`,`transfer_bill_id`,`commodity_id`,`commodity_num`) values ";
+			for($i=0;$i<count($transfer_detail_order_str["commodity_id_res"]);$i++){
+				if($i==0){
+					$transfer_detail_order_str .= "(NULL,'{$transfer_detail_order_str['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
+				}else{
+					$transfer_detail_order_str .= ",(NULL,'{$transfer_detail_order_str['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
+				}
+			}
+			if($this->db->query($transfer_detail_order_str)){
+				return true;
+			}
+			return false;
+		}
 	}
 ?>
