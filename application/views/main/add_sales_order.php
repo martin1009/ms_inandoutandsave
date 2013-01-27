@@ -101,6 +101,9 @@ for(i=0;i<cs.length;i++){
           			<div class="div_title">
           				<span>新增销售单</span>
           			</div>
+          			<!-- app_path -->
+          			<input type="hidden" value="<?=site_url();?>" name="app_path" />
+          			<!-- app_path End -->
           			<form name="add_storage_order_form" action="<?=site_url("main/add_storage_order/add_order");?>" method="post">
           			<div class="div_content">
           				<div class="div_content_title">
@@ -110,7 +113,7 @@ for(i=0;i<cs.length;i++){
 	          					<li>会员卡号：<input type='text' name='serial_number' class='input_1' /></li>
 	          					<li id="sel_serial">
 	          						<ul>
-	          							<li><span>55555</span></li>
+	          							<li name="sel_serial_li"><span>55555</span></li>
 	          						</ul>
 	          					</li>
 	          					<li>礼　品：<input type='text' class='input_1' /></li>

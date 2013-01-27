@@ -27,6 +27,28 @@ $(document).ready(function(){
 		}
 	});
 	
+	//查找会员
+	var serial_number = "";
+	$("input[name='serial_number']").focus(function(){
+		$(this).unbind("keyup");
+		$(this).keyup(function(){
+			if($(this).val() != "" && $(this).val()!= serial_number){
+				serial_number = $(this).val();
+				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
+					$("#sel_serial").css("display","block");
+					$("#sel_serial").html(data);
+				});
+			}
+		});
+	});
+	$("input[name='serial_number']").blur(function(){
+		$("#sel_serial").css("display","none");
+	});
+	$("li[name='sel_serial_li']").live("mouseenter",function(){
+		$(this).css("background","");
+	});
+	
+	
 	//添加商品单击事件
 	$("#add_commodity").click(function(){
 		var commodity_number = $("input[name='commodity_number']").val();

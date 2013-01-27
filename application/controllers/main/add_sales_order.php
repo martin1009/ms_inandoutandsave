@@ -17,5 +17,14 @@
 			);
 			$this->load->view("main/add_sales_order",$sales_data);
 		}
+		/*
+		 * @abstract sel_serial 查找会员
+		 * @access public
+		 * */
+		public function sel_serial(){
+			echo "<ul>";
+			echo "<li name='sel_serial_li'><span>{$this->input->post("serial_number")}</span></li>";
+			echo "</ul>";
+		}
 	}
 ?>
