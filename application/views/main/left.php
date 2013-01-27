@@ -79,8 +79,8 @@ function MM_swapImage() { //v3.0
         		<dd class="dd_1">
         			<div class="dd_div_1" name="fu_menu" id="sales_order"><span><a href="javascript:void(0);">销售单管理</a></span></div>
         			<ul class="ul_1" name="sales_order">
-        				<li class="li_1"><div class="li_div_1"><span><a href="javascript:void(0);">新增销售单</a></span></div></li>
-        				<li class="li_1"><div class="li_div_2"><span><a href="javascript:void(0);">查看销售单</a></span></div></li>
+        				<li class="li_1"><div class="li_div_1"><span><a href="<?=site_url("main/add_sales_order/index/".rand(0,100));?>" target="content">新增销售单</a></span></div></li>
+        				<li class="li_1"><div class="li_div_2"><span><a href="<?=site_url("main/view_sales_information/index/1/".rand(0,100));?>" target="content">查看所有销售单</a></span></div></li>
         			</ul>
         		</dd>
         		<dd class="dd_1">
