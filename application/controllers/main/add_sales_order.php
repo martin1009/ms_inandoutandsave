@@ -22,9 +22,18 @@
 		 * @access public
 		 * */
 		public function sel_serial(){
-			echo "<ul>";
-			echo "<li name='sel_serial_li'><span>{$this->input->post("serial_number")}</span></li>";
-			echo "</ul>";
+			$this->load->model("main/add_sales_order_model");
+			//获取数据
+			$serial_number = $this->input->post("serial_number");
+			//模糊搜索
+			$serial_res = $this->add_sales_order_model->sel_vague_serial($serial_number);
+			if($serial_res != false){
+				foreach($serial_res as $serial){
+					echo "<ul>";
+					echo "<li name='sel_serial_li'><span name='serial_number'>{$serial['serial_number']}</span>&nbsp;&nbsp;<span name='name'>{$serial['name']}</span></li>";
+					echo "</ul>";
+				}
+			}
 		}
 	}
 ?>

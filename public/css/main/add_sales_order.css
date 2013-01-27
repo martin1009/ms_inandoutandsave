@@ -158,11 +158,12 @@
 }
 
 #sel_serial ul li{
-	margin-left:3px;
 	height:15px;
-	width:116px;
+	margin:0px;
+	cursor:pointer;
 }
 
 #sel_serial ul li span{
+	margin-left:3px;
 	line-height:15px;
 }

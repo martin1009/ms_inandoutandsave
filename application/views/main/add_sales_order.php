@@ -110,7 +110,7 @@ for(i=0;i<cs.length;i++){
 	          				<ul>
 	          					<li>销售单号：<input type='text' name='sales_order_number' class='input_1' readonly="readonly" /></li>
 	          					<li>日　期：<input type='text' name='sales_date' readonly="readonly" class='input_1' /></li>
-	          					<li>会员卡号：<input type='text' name='serial_number' class='input_1' /></li>
+	          					<li>会员卡号：<!-- 临时域 --><input type='text' name='serial_number_temp' class='input_1' /><!-- 提交的隐藏域 --><input type='hidden' name='serial_number' /></li>
 	          					<li id="sel_serial">
 	          						<ul>
 	          							<li name="sel_serial_li"><span>55555</span></li>

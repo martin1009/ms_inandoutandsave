@@ -27,26 +27,47 @@ $(document).ready(function(){
 		}
 	});
 	
-	//查找会员
+	//=======================================查找会员开始=======================================
 	var serial_number = "";
-	$("input[name='serial_number']").focus(function(){
+	//获取焦点事件
+	$("input[name='serial_number_temp']").focus(function(){
 		$(this).unbind("keyup");
 		$(this).keyup(function(){
-			if($(this).val() != "" && $(this).val()!= serial_number){
-				serial_number = $(this).val();
+			//如果内容发生改变
+			if($(this).val() != ""){
+				serial_number = $(this).val();  //获取卡号内容
+				//调用AJAX查找
 				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
 					$("#sel_serial").css("display","block");
 					$("#sel_serial").html(data);
 				});
+			}else{
+				$("#sel_serial").css("display","none");
 			}
 		});
 	});
-	$("input[name='serial_number']").blur(function(){
-		$("#sel_serial").css("display","none");
-	});
+	//鼠标经过事件
 	$("li[name='sel_serial_li']").live("mouseenter",function(){
-		$(this).css("background","");
+		$(this).css("background","#999999");
 	});
+	//鼠标选中(单击)事件
+	$("li[name='sel_serial_li']").live("click",function(){
+		$("input[name='serial_number_temp']").val($(this).html());
+	});
+	//离开焦点事件
+	$("input[name='serial_number_temp']").blur(function(){
+		//鼠标选中(单击)事件
+		$("li[name='sel_serial_li']").live("click",function(){
+			$("input[name='serial_number_temp']").val($(this).html());
+			$("#sel_serial").css("display","none");
+		});
+		$("li[name='sel_serial_li']").unbind("click");
+	});
+	//鼠标滑开事件
+	$("li[name='sel_serial_li']").live("mouseleave",function(){
+		$(this).css("background","none");
+	});
+	//=======================================查找会员结束=======================================
 	
 	
 	//添加商品单击事件
@@ -91,6 +112,9 @@ $(document).ready(function(){
 		if(!num){
 			return false;
 		}
+		//把会员卡号内容复制到隐藏域中（防止input框缓存）
+		$("input[name='serial_number']").val($("input[name='serial_number_temp']").val());
+		$("input[name='serial_number_temp']").val("")
 		//提交表单
 		$("form[name='add_storage_order_form']").submit();
 	});
