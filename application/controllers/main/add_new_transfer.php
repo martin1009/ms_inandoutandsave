@@ -40,18 +40,18 @@
 		 * @access public
 		 * */
 		public function add_order(){
-			echo "<pre>";
-			print_r($_POST);
-			echo "</pre>";
+// 			echo "<pre>";
+// 			print_r($_POST);
+// 			echo "</pre>";
 			$this->load->library("form_validation");
 			$this->load->model("main/add_new_transfer_model");
 			//防空验证
-			$this->form_validation->set_result("transfer_order_number","调库单号","trim|required");
-			$this->form_validation->set_result("transfer_date","日期","trim|required");
-			$this->form_validation->set_result("out_warehouse_id","出货仓库","trim|required");
-			$this->form_validation->set_result("in_warehouse_id","入货仓库","trim|required");
-			$this->form_validation->set_result("commodity_id","商品","trim|required");
-			$this->form_validation->set_result("num","数量","trim|required");
+			$this->form_validation->set_rules("transfer_order_number","调库单号","trim|required");
+			$this->form_validation->set_rules("transfer_date","日期","trim|required");
+			$this->form_validation->set_rules("out_warehouse_id","出货仓库","trim|required");
+			$this->form_validation->set_rules("in_warehouse_id","入货仓库","trim|required");
+// 			$this->form_validation->set_result("commodity_id","商品","trim|required");
+// 			$this->form_validation->set_result("num","数量","trim|required");
 			$this->form_validation->set_message("required","%s不能为空！");
 			if($this->form_validation->run()){
 				//获取调库单基本数据
@@ -69,15 +69,32 @@
 					$transfer_detail_order_data = array(
 						"transfer_bill_id" => $transfer_order_id,  //所属调库单ID号
 						"commodity_id_res" => $this->input->post("commodity_id"),  //商品ID数组
-						"num_res" => $this->input->post("num")  //商品数量数组
+						"num_res" => $this->input->post("num")  //调库数量数组
 					);
+					//插入调库单详细信息
 					if($this->add_new_transfer_model->add_transfer_detail_order($transfer_detail_order_data)){
-						$success_data = array(
-							"content" => "调库单添加成功！",
-							"url" => site_url("main/add_new_transfer"),
-							"time" => 3
+						$stock_data = array(
+							"out_warehouse_id" => $transfer_order_data['out_warehouse_id'],  //出库ID号
+							"in_warehouse_id" => $transfer_order_data['in_warehouse_id'],  //入库ID号
+							"commodity_id_res" => $transfer_detail_order_data['commodity_id_res'],  //商品ID数组
+							"num_res" => $transfer_detail_order_data['num_res']  //调库数量数组
 						);
-						$this->load->view("prompt/success",$success_data);
+						//更新商品库存
+						if($this->add_new_transfer_model->update_stock($stock_data)){
+							$success_data = array(
+								"content" => "调库单添加成功！",
+								"url" => site_url("main/add_new_transfer"),
+								"time" => 3
+							);
+							$this->load->view("prompt/success",$success_data);
+						}else{
+							$error_data = array(
+								"content" => "更新库存数量时发生错误！",
+								"url" => site_url("main/add_new_transfer"),
+								"time" => 3
+							);
+							$this->load->view("prompt/error",$error_data);
+						}
 					}else{
 						$error_data = array(
 							"content" => "插入调库单详细表时发生错误！",

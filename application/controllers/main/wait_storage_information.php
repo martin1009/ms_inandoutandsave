@@ -13,7 +13,7 @@
 		public function index($page=1){
 			$this->load->model("main/wait_storage_information_model");  //载入模型
 			//分页数据
-			$page_row = 15;  //每页显示条数
+			$page_row = 21;  //每页显示条数
 			$num_row = $this->wait_storage_information_model->sel_all_wait_storage_num();  //总条数
 			$page_num = ceil($num_row/$page_row);  //总页数
 			if($page > $page_num && $page_num != 0){

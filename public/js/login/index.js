@@ -16,4 +16,10 @@ $(document).ready(function(){
 		//通过提交
 		$("#login_form").submit();
 	});
+	//回车事件
+	$(document).keyup(function(event){
+		if(event.keyCode == 13){
+			$("#submit").click();
+		}
+	});
 });

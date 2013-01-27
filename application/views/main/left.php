@@ -109,7 +109,7 @@ function MM_swapImage() { //v3.0
         			<div class="dd_div_1" name="fu_menu" id="switch_warehouse"><span><a href="javascript:void(0);">商品调库管理</a></span></div>
         			<ul class="ul_1" name="switch_warehouse">
         				<li class="li_1"><div class="li_div_1"><span><a href="<?=site_url("main/add_new_transfer/index/".rand(0,100));?>" target="content">新增调库单</a></span></div></li>
-        				<li class="li_1"><div class="li_div_2"><span><a href="javascript:void(0);">查看调库单</a></span></div></li>
+        				<li class="li_1"><div class="li_div_2"><span><a href="<?=site_url("main/view_transfer_information/index/1/".rand(0,100));?>" target="content">查看所有调库单</a></span></div></li>
         			</ul>
         		</dd>
         		<dd class="dd_3">

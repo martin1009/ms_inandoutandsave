@@ -14,7 +14,7 @@
 		public function index($page=1){
 			$this->load->model("main/view_employee_information_model");  //载入模型
 			//分页数据
-			$page_row = 15;  //每页显示条数
+			$page_row = 21;  //每页显示条数
 			$num_row = $this->view_employee_information_model->sel_all_commodity_num();  //总条数
 			$page_num = ceil($num_row/$page_row);  //总页数
 			if($page > $page_num && $page_num != 0){

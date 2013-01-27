@@ -69,7 +69,7 @@
 		 * @access public
 		 * */
 		public function add_transfer_order($transfer_order_data){
-			if($this->db->insert($transfer_order_data)){
+			if($this->db->insert("ms_transfer_bill",$transfer_order_data)){
 				return mysql_insert_id();
 			}
 			return false;
@@ -84,15 +84,32 @@
 			$transfer_detail_order_str = "insert into `ms_detail_transfer_bill` (`id`,`transfer_bill_id`,`commodity_id`,`commodity_num`) values ";
 			for($i=0;$i<count($transfer_detail_order_str["commodity_id_res"]);$i++){
 				if($i==0){
-					$transfer_detail_order_str .= "(NULL,'{$transfer_detail_order_str['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
+					$transfer_detail_order_str .= "(NULL,'{$transfer_detail_order_data['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
 				}else{
-					$transfer_detail_order_str .= ",(NULL,'{$transfer_detail_order_str['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
+					$transfer_detail_order_str .= ",(NULL,'{$transfer_detail_order_data['transfer_bill_id']}','{$transfer_detail_order_data['commodity_id_res'][$i]}','{$transfer_detail_order_data['num_res'][$i]}')";
 				}
 			}
 			if($this->db->query($transfer_detail_order_str)){
 				return true;
 			}
 			return false;
+		}
+		/*
+		 * @abstract update_stock 更新库存数量
+		 * @param $stock_data 更新数据
+		 * @return bool
+		 * @access public
+		 * */
+		public function update_stock($stock_data){
+			$b = true;
+			for($i=0;$i<count($stock_data['commodity_id_res']);$i++){
+				$call_stock_str = "CALL transfer_order({$stock_data['out_warehouse_id']},{$stock_data['in_warehouse_id']},{$stock_data['commodity_id_res'][$i]},{$stock_data['num_res'][$i]})";
+				if(!$this->db->query($call_stock_str)){
+					$b = false;
+					break;
+				}
+			}
+			return $b;
 		}
 	}
 ?>

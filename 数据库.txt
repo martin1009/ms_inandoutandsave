@@ -1,155 +1,28 @@
-﻿CREATE DATABASE `new_inandout`;
+﻿-- phpMyAdmin SQL Dump
+-- version 3.4.10.1
+-- http://www.phpmyadmin.net
+--
+-- 主机: localhost
+-- 生成日期: 2013 年 01 月 27 日 01:13
+-- 服务器版本: 5.5.20
+-- PHP 版本: 5.3.10
 
-用户表(管理员登陆表)rbac_admin_info:
-CREATE TABLE `rbac_admin_info` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`username` VARCHAR( 20 ) NOT NULL COMMENT '用户名',
-	`password` VARCHAR( 40 ) NOT NULL COMMENT '密码',
-	UNIQUE (
-		`username`
-	)
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '用户表'
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
+--
+-- 数据库: `new_inandout`
+--
 
-角色表rbac_role:
-CREATE TABLE `rbac_role` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`name` VARCHAR( 50 ) NOT NULL COMMENT '角色名称(限10个汉字)',
-	`remark` VARCHAR( 200 ) NULL COMMENT '备注',
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '角色表'
+DELIMITER $$
+--
+-- 存储过程
+--
 
-
-节点表RBAC_node:
-CREATE TABLE `InAndOutAndSave`.`RBAC_node` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`name` VARCHAR( 50 ) NOT NULL COMMENT '操作节点的名称',
-	`zh_name` VARCHAR( 200 ) NULL COMMENT '节点的中文说明'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '节点表'
-
-
-节点对应角色表RBAC_nodeAndRole:
-CREATE TABLE `InAndOutAndSave`.`RBAC_nodeAndRole` (
-	`role_id` INT NOT NULL COMMENT '外键，关联角色表中的主键ID',
-	`node_id` INT NOT NULL COMMENT '外键，关联节点表中的主键ID',
-	`editorselect` TINYINT NOT NULL COMMENT '控制节点的编辑状态，1为可以编辑，2为仅能查看'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '节点对应角色表'
-
-
-用户对应角色表RBAC_adminAndRole:
-CREATE TABLE `InAndOutAndSave`.`RBAC_adminAndRole` (
-	`role_id` INT NOT NULL COMMENT '用户角色ID(外键，关联角色表中的主键ID)',
-	`user_id` INT NOT NULL COMMENT '用户ID(外键，关联用户表中的主键ID)'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '用户对应角色表'
-
-
-员工资料表ms_employee_info:
-CREATE TABLE `ms_employee_info` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`name` VARCHAR( 20 ) NOT NULL COMMENT '员工姓名',
-	`age` INT( 3 ) NULL COMMENT '员工年龄',
-	`sex` VARCHAR( 6 ) NULL COMMENT '员工性别',
-	`number` VARCHAR( 50 ) NULL COMMENT '员工编号',
-	`tel` VARCHAR( 30 ) NULL COMMENT '员工联系方式',
-	`identity_card` VARCHAR( 20 ) NULL COMMENT '员工身份证号',
-	`entry_time` INT ( 15 )	NULL COMMENT '入职时间',
-	`remarks` TEXT NULL COMMENT '备注',
-	`user_id` INT NULL COMMENT '所属系统用户ID'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '员工资料表'
-
-
-会员资料表ms_membership_information:
-CREATE TABLE `ms_membership_information` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`name` VARCHAR( 20 ) NOT NULL COMMENT '会员姓名',
-	`sex` VARCHAR( 6 ) NOT NULL COMMENT '会员性别',
-	`age` INT( 3 ) NULL COMMENT '会员年龄',
-	`tel` VARCHAR( 50 ) NULL COMMENT '会员电话',
-	`birthday` DATE NULL COMMENT '生日',
-	`serial_number` VARCHAR( 30 ) NOT NULL COMMENT '会员卡号',
-	`remark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '会员资料表'
-
-
-商品信息表ms_commodity_information:
-CREATE TABLE `ms_commodity_information` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`commodity_number` VARCHAR( 20 ) NOT NULL COMMENT '商品编号',
-	`brand` VARCHAR( 50 ) NULL COMMENT '品牌',
-	`commodity_serial_number` VARCHAR( 20 ) NOT NULL COMMENT '货号',
-	`commodity_name` VARCHAR( 30 ) NOT NULL COMMENT '商品名称',
-	`commodity_color` VARCHAR( 10 ) NOT NULL COMMENT '商品颜色',
-	`commodity_size` VARCHAR( 10 ) NOT NULL COMMENT '尺码',
-	`tag_price` FLOAT(7,2) UNSIGNED NOT NULL COMMENT '吊牌价',
-	`dan_wei` VARCHAR( 10 ) NOT NULL COMMENT '单位',
-	`remark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品信息表'
-
-
-商品库存信息ms_stock_information:
-CREATE TABLE `ms_stock_information` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`commodity_id` INT NOT NULL COMMENT '商品ID号',
-	`warehouse_id` INT NOT NULL COMMENT '所属仓库ID号',
-	`position` VARCHAR( 20 ) NULL COMMENT '存放位置',
-	`inventory_number` INT( 20 ) NULL COMMENT '库存商品数量'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品库存信息'
-
-
-仓库表ms_warehouse:
-CREATE TABLE `ms_warehouse` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`warehouse_name` VARCHAR( 20 ) NOT NULL COMMENT '仓库名称',
-	`warehouse_address` VARCHAR( 100 ) NOT NULL COMMENT '仓库地址',
-	`warehouse_type` TINYINT(1) NOT NULL COMMENT '仓库的类型(1.销售仓库　2.存储仓库)',
-	`warehouse_default` TINYINT(1) NOT NULL COMMENT '是否为默认(每种类型的仓库只能存在一个默认仓库  1:是    0:否)',
-	`remark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '仓库表'
-
-
-仓储柜表ms_cabinet:
-CREATE TABLE `ms_cabinet` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`cabinet_name` VARCHAR( 20 ) NOT NULL COMMENT '仓储柜名称',
-	`remark` TEXT NULL COMMENT '仓储柜备注',
-	`warehouse_id` INT NOT NULL COMMENT '所属仓库ID号'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '仓储柜表'
-
-
-仓储柜格子表ms_cabinet_lattice:
-CREATE TABLE `ms_cabinet_lattice` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`cabinet_id` INT NOT NULL COMMENT '所属仓储柜ID号',
-	`lattice_name` VARCHAR( 40 ) NOT NULL COMMENT '格子描述',
-	`remark` TEXT NULL COMMENT '格子备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '仓储柜格子表'
-
-
-进货(采购)单表ms_new_purchase_bill:
-CREATE TABLE `ms_new_purchase_bill` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`purchase_date` date NOT NULL COMMENT '单据日期',
-	`purchase_order_number` VARCHAR( 16 ) NOT NULL COMMENT '进货单号',
-	`warehouse_id` INT NOT NULL COMMENT '存储的仓库ID号',
-	`supplier_name` VARCHAR( 100 ) NOT NULL COMMENT '供应商名称',
-	`commodity_num` INT( 10 ) NOT NULL COMMENT '合计整单商品数量',
-	`total_price` FLOAT(7,2) NOT NULL COMMENT '合计整单金额',
-	`settlement_status` TINYINT( 1 ) NOT NULL DEFAULT 0 COMMENT '结算状态（1,已结算   0,未结算）',
-	`remark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '进货单表'
-
-
-进货单明细表ms_detail_purchase_bill:
-CREATE TABLE `ms_detail_purchase_bill` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`purchase_bill_id` INT NOT NULL COMMENT '所属进货单ID号',
-	`commodity_id` INT NOT NULL COMMENT '商品ID号',
-	`goods_num` INT( 10 ) NOT NULL COMMENT '数量',
-	`unit_price` FLOAT(7,2) NOT NULL COMMENT '单价'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '进货单明细表'
-
-
-//结算入库单存储过程
-CREATE PROCEDURE storage_commodity(
+--
+-- 入库单存储过程
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `storage_commodity`(
 	IN _commodity_id INT,
 	IN _warehouse_id INT,
 	IN _inventory_number INT
@@ -168,165 +41,309 @@ BEGIN
 		INSERT INTO `ms_stock_information` (`id`,`commodity_id`,`warehouse_id`,`position`,`inventory_number`)
 		VALUES (NULL,_commodity_id,_warehouse_id,'',_inventory_number);
 	END IF;
-END//
+END$$
 
-//调库单存储过程
-CREATE PROCEDURE transfer_order(
-	--出货仓库ID号
+
+--
+-- 调库单存储过程
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `transfer_order`(
+	-- 出货仓库
 	IN out_warehouse_id INT,
-	--入货仓库ID号
+	-- 入货仓库
 	IN in_warehouse_id INT,
-	--商品ID
+	-- 商品ID
 	IN _commodity_id INT,
-	--调动数量
+	-- 调库数量
 	IN _num INT
 )
 BEGIN
-	--更新出货仓库数量
+	DECLARE res TINYINT(1);
+	
 	UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number` - _num 
 	WHERE `warehouse_id` = out_warehouse_id AND `commodity_id` = _commodity_id;
-	--更新入货仓库数量
-	--检查此商品是否已经存在入货仓库
-	DECLARE res TINYINT(1);
+	
 	SELECT COUNT(*) INTO res FROM `ms_stock_information` 
 	WHERE `warehouse_id` = in_warehouse_id AND `commodity_id` = _commodity_id;
-	--执行更新
+	
 	IF res > 0 THEN
 		UPDATE `ms_stock_information` SET `inventory_number` = `inventory_number` + _num 
 		WHERE `commodity_id` = _commodity_id AND `warehouse_id` = in_warehouse_id;
 	ELSE
-		INSERT INTO `ms_stock_information` (`id`,`commodity`,`warehouse_id`,`position`,`inventory_number`) 
-		VALUES (NULL,_commodity_id,_warehouse_id,'',_inventory_number);
+		INSERT INTO `ms_stock_information` (`id`,`commodity_id`,`warehouse_id`,`position`,`inventory_number`) 
+		VALUES (NULL,_commodity_id,in_warehouse_id,'',_num);
 	END IF;
-END//
+END$$
 
+DELIMITER ;
 
-礼品表ms_gift_info:
-CREATE TABLE `ms_gift_info` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`name` VARCHAR( 30 ) NOT NULL COMMENT '礼品名称',
-	`number` VARCHAR( 10 ) NOT NULL COMMENT '礼品数量',
-	`mark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '礼品表'
+-- --------------------------------------------------------
 
+--
+-- 仓储柜表 `ms_cabinet`
+--
 
-调库单表ms_transfer_bill:
-CREATE TABLE `ms_transfer_bill` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`transfer_date` date NOT NULL COMMENT '单据日期',
-	`transfer_order_number` VARCHAR( 16 ) NOT NULL COMMENT '入库单号',
-	`out_warehouse_id` INT NOT NULL COMMENT '出库仓库ID号',
-	`in_warehouse_id` INT NOT NULL COMMENT '入库仓库ID号',
-	`commodity_num` INT( 10 ) NOT NULL COMMENT '合计整单商品数量',
-	`remark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '调库单表'
+CREATE TABLE IF NOT EXISTS `ms_cabinet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `cabinet_name` varchar(20) NOT NULL COMMENT '仓储柜名称',
+  `warehouse_id` int(11) NOT NULL COMMENT '所属仓库ID号',
+  `remark` text COMMENT '仓储柜备注',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='仓储柜表';
 
+-- --------------------------------------------------------
 
-调库单明细表ms_detail_transfer_bill:
-CREATE TABLE `ms_detail_transfer_bill` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`transfer_bill_id` INT NOT NULL COMMENT '所属调库单ID号',
-	`commodity_id` INT NOT NULL COMMENT '商品ID号',
-	`commodity_num` INT( 10 ) NOT NULL COMMENT '数量'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '调库单明细表'
+--
+-- 仓储柜格子表 `ms_cabinet_lattice`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_cabinet_lattice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `cabinet_id` int(11) NOT NULL COMMENT '所属仓储柜ID号',
+  `lattice_name` varchar(40) NOT NULL COMMENT '格子描述',
+  `remark` text COMMENT '格子备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='仓储柜格子表';
 
+-- --------------------------------------------------------
 
+--
+-- 商品信息表 `ms_commodity_information`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_commodity_information` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `commodity_number` varchar(20) NOT NULL COMMENT '商品编号',
+  `commodity_serial_number` varchar(20) NOT NULL COMMENT '货号',
+  `commodity_name` varchar(30) NOT NULL COMMENT '商品名称',
+  `commodity_color` varchar(10) NOT NULL COMMENT '商品颜色',
+  `commodity_size` varchar(10) NOT NULL COMMENT '尺码',
+  `tag_price` float(7,2) unsigned NOT NULL COMMENT '吊牌价',
+  `dan_wei` varchar(10) NOT NULL COMMENT '单位',
+  `remark` text COMMENT '备注',
+  `brand` varchar(50) DEFAULT NULL COMMENT '品牌',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
+-- --------------------------------------------------------
 
+--
+-- 进货单明细表 `ms_detail_purchase_bill`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_detail_purchase_bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `purchase_bill_id` int(11) NOT NULL COMMENT '所属进货单ID号',
+  `commodity_id` int(11) NOT NULL COMMENT '商品ID号',
+  `goods_num` int(10) NOT NULL COMMENT '数量',
+  `unit_price` float(7,2) NOT NULL COMMENT '单价',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='进货单明细表';
 
+-- --------------------------------------------------------
 
+--
+-- 销售单明细表 `ms_detail_sales_order`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_detail_sales_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `sales_order_id` int(11) NOT NULL COMMENT '所属销售单ID号',
+  `commodity_id` int(11) NOT NULL COMMENT '商品ID号',
+  `commodity_num` int(10) NOT NULL COMMENT '数量',
+  `unit_price` float(7,2) NOT NULL COMMENT '单价',
+  `remark` text COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='销售单明细表';
 
+-- --------------------------------------------------------
 
+--
+-- 调库单明细表 `ms_detail_transfer_bill`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_detail_transfer_bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `commodity_id` int(11) NOT NULL COMMENT '商品ID号',
+  `commodity_num` int(10) NOT NULL COMMENT '数量',
+  `transfer_bill_id` int(11) NOT NULL COMMENT '所属调库单ID号',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='调库单明细表';
 
+-- --------------------------------------------------------
 
+--
+-- 员工资料表 `ms_employee_info`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_employee_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `name` varchar(20) NOT NULL COMMENT '员工姓名',
+  `sex` varchar(6) DEFAULT NULL COMMENT '员工性别',
+  `number` varchar(50) DEFAULT NULL COMMENT '员工编号',
+  `tel` varchar(30) DEFAULT NULL COMMENT '员工联系方式',
+  `identity_card` varchar(20) DEFAULT NULL COMMENT '员工身份证号',
+  `remarks` text COMMENT '备注',
+  `user_id` int(11) DEFAULT NULL COMMENT '所属系统用户ID',
+  `age` int(3) DEFAULT NULL COMMENT '员工年龄',
+  `entry_time` int(15) DEFAULT NULL COMMENT '入职时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='员工资料表';
 
+-- --------------------------------------------------------
 
+--
+-- 礼品表 `ms_gift_info`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_gift_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `name` varchar(30) NOT NULL COMMENT '礼品名称',
+  `number` varchar(10) NOT NULL COMMENT '礼品数量',
+  `mark` text COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='礼品表';
 
+-- --------------------------------------------------------
 
+--
+-- 会员消费记录表 `ms_membership_consumption`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_membership_consumption` (
+  `membership_id` int(11) NOT NULL COMMENT '所属会员ID号',
+  `sales_order_id` int(11) NOT NULL COMMENT '销售单号',
+  `time` datetime NOT NULL COMMENT '消费时间',
+  `price` float(7,2) NOT NULL COMMENT '消费金额'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员消费记录表';
 
+-- --------------------------------------------------------
 
-商品分类表ms_commodity_classification:
-CREATE TABLE `InAndOutAndSave`.`ms_commodity_classification` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`commodity_name` VARCHAR( 30 ) NOT NULL COMMENT '分类名称',
-	`commodity_mark` TEXT NULL COMMENT '分类说明'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品分类表'
+--
+-- 会员资料表 `ms_membership_information`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_membership_information` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `name` varchar(20) NOT NULL COMMENT '会员姓名',
+  `sex` varchar(6) NOT NULL COMMENT '会员性别',
+  `age` int(3) DEFAULT NULL COMMENT '会员年龄',
+  `tel` varchar(50) DEFAULT NULL COMMENT '会员电话',
+  `birthday` date DEFAULT NULL COMMENT '生日',
+  `serial_number` varchar(30) NOT NULL COMMENT '会员卡号',
+  `remark` text COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='会员资料表';
 
-商品颜色表ms_commodity_color:
-CREATE TABLE `InAndOutAndSave`.`ms_commodity_color` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`color_number` VARCHAR( 20 ) NOT NULL COMMENT '颜色编码',
-	`color_name` VARCHAR( 20 ) NOT NULL COMMENT '颜色中文名称'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品颜色表'
+-- --------------------------------------------------------
 
+--
+-- 进货单表 `ms_new_purchase_bill`
+--
 
-商品单位表ms_commodity_dan_wei:
-CREATE TABLE `InAndOutAndSave`.`ms_commodity_dan_wei` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`dan_wei_name` VARCHAR( 20 ) NOT NULL COMMENT '单位名称'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品单位表'
+CREATE TABLE IF NOT EXISTS `ms_new_purchase_bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `purchase_date` date NOT NULL COMMENT '单据日期',
+  `purchase_order_number` varchar(16) NOT NULL COMMENT '进货单号',
+  `warehouse_id` int(11) NOT NULL COMMENT '存储的仓库ID号',
+  `supplier_name` varchar(100) NOT NULL COMMENT '供应商名称',
+  `remark` text COMMENT '备注',
+  `commodity_num` int(10) NOT NULL COMMENT '合计整单商品数量',
+  `total_price` float(7,2) NOT NULL COMMENT '合计整单金额',
+  `settlement_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '结算状态（1,已结算   0,未结算）',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='进货单表';
 
+-- --------------------------------------------------------
 
-商品尺寸表ms_commodity_size:
-CREATE TABLE `InAndOutAndSave`.`ms_commodity_size` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`size_name` VARCHAR( 20 ) NOT NULL COMMENT '尺寸名称'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '商品尺寸表'
+--
+-- 销售单表 `ms_sales_order`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_sales_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `sales_order_number` varchar(20) NOT NULL COMMENT '销售单编号',
+  `sales_order_date` datetime NOT NULL COMMENT '销售时间',
+  `input_staff_id` int(11) NOT NULL COMMENT '录入员ID号',
+  `member_id` int(11) NOT NULL COMMENT '会员ID号',
+  `warehouse_id` int(11) NOT NULL COMMENT '出货仓库ID号',
+  `commodity_num` int(10) NOT NULL COMMENT '合计整单商品数量',
+  `total_price` float(7,2) NOT NULL COMMENT '合计整单金额',
+  `sales_order_mark` text COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='销售单表';
 
+-- --------------------------------------------------------
 
+--
+-- 销售单附礼品表 `ms_sales_order_gift`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_sales_order_gift` (
+  `order_id` int(11) NOT NULL COMMENT '销售单ID号',
+  `gift_id` int(11) NOT NULL COMMENT '礼品ID号',
+  `gift_num` int(11) NOT NULL COMMENT '礼品数量'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='销售单附礼品表';
 
-销售单表ms_sales_order:
-CREATE TABLE `InAndOutAndSave`.`ms_sales_order` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`sales_order_number` VARCHAR( 20 ) NOT NULL COMMENT '销售单编号',
-	`sales_order_date` VARCHAR( 20 ) NOT NULL COMMENT '销售日期',
-	`input_staff` VARCHAR( 20 ) NOT NULL COMMENT '录入员',
-	`member_number` VARCHAR( 20 ) NOT NULL COMMENT '会员卡号',
-	`warehouse_id` INT NOT NULL COMMENT '出货仓库ID号',
-	`gift_name` VARCHAR( 100 ) NULL COMMENT '礼品ID号（0或空为没有赠送礼品,多件礼品之间用逗号隔开）',
-	`sales_order_mark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '销售单表'
+-- --------------------------------------------------------
 
+--
+-- 商品库存信息 `ms_stock_information`
+--
 
-销售单明细表ms_detail_sales_order:
-CREATE TABLE `InAndOutAndSave`.`ms_detail_sales_order` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`goods_number` VARCHAR( 20 ) NOT NULL COMMENT '商品编号',
-	`goods_serial_number` VARCHAR( 20 ) NOT NULL COMMENT '货号',
-	`class` VARCHAR(30) NOT NULL COMMENT '所属分类',
-	`goods_name` VARCHAR( 30 ) NOT NULL COMMENT '商品名称',
-	`goods_color` VARCHAR( 10 ) NOT NULL COMMENT '商品颜色',
-	`goods_size` VARCHAR( 10 ) NOT NULL COMMENT '尺码',
-	`sales_price` VARCHAR( 10 ) NOT NULL COMMENT '销售价',
-	`sales_order_number` INT NOT NULL COMMENT '销售单ID号',
-	`order_mark` TEXT NULL COMMENT '备注'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '销售单明细表'
+CREATE TABLE IF NOT EXISTS `ms_stock_information` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `commodity_id` int(11) NOT NULL COMMENT '商品ID号',
+  `inventory_number` int(20) DEFAULT NULL COMMENT '库存商品数量',
+  `warehouse_id` int(11) NOT NULL COMMENT '所属仓库ID号',
+  `position` varchar(20) DEFAULT NULL COMMENT '存放位置',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='商品库存信息';
 
+-- --------------------------------------------------------
 
+--
+-- 调库单表 `ms_transfer_bill`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_transfer_bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `transfer_date` date NOT NULL COMMENT '单据日期',
+  `transfer_order_number` varchar(16) NOT NULL COMMENT '调库单号',
+  `out_warehouse_id` int(11) NOT NULL COMMENT '出库仓库ID号',
+  `in_warehouse_id` int(11) NOT NULL COMMENT '入库仓库ID号',
+  `commodity_num` int(10) NOT NULL COMMENT '合计整单商品数量',
+  `remark` text COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='调库单表';
 
+-- --------------------------------------------------------
 
+--
+-- 仓库表 `ms_warehouse`
+--
 
+CREATE TABLE IF NOT EXISTS `ms_warehouse` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `warehouse_name` varchar(20) NOT NULL COMMENT '仓库名称',
+  `warehouse_address` varchar(100) NOT NULL COMMENT '仓库地址',
+  `remark` text COMMENT '备注',
+  `warehouse_type` tinyint(1) NOT NULL COMMENT '仓库的类型(1.销售仓库　2.存储仓库)',
+  `warehouse_default` tinyint(1) NOT NULL COMMENT '是否为默认(每种类型的仓库只能存在一个默认仓库)',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='仓库表';
 
+-- --------------------------------------------------------
 
-公告表Announcement_info
-CREATE TABLE `InAndOutAndSave`.`Announcement_info` (
-	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID号',
-	`title` VARCHAR( 100 ) NOT NULL COMMENT '公告标题',
-	`content` TEXT 	NOT NULL COMMENT '公告内容',
-	`publishedTime`	DATETIME NOT NULL COMMENT '发表时间'
-) ENGINE = MYISAM CHARACTER SET utf8 COLLATE utf8_general_ci COMMENT = '公告表'
+--
+-- 用户表 `rbac_admin_info`
+--
 
-
-
+CREATE TABLE IF NOT EXISTS `rbac_admin_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID号',
+  `username` varchar(20) NOT NULL COMMENT '用户名',
+  `password` varchar(40) NOT NULL COMMENT '密码',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表';
