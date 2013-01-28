@@ -20,16 +20,30 @@
 			return false;
 		}
 		/*
-		 * @abstract sel_vague_serial 模糊搜索卡号
+		 * @abstract sel_vague_serial 模糊搜索卡号和人名
 		 * @param $serial_number
 		 * @return array
 		 * @access public
 		 * */
 		public function sel_vague_serial($serial_number){
-			$sel_vague_serial_str = "select * from `ms_membership_information` where `serial_number` like '%{$serial_number}%'";
+			$sel_vague_serial_str = "select * from `ms_membership_information` where `serial_number` like '%{$serial_number}%' or `name` like '%{$serial_number}%' limit 15";
 			$sel_vague_serial_res = $this->db->query($sel_vague_serial_str);
 			if($sel_vague_serial_res->num_rows() > 0){
 				return $sel_vague_serial_res->result_array();
+			}
+			return false;
+		}
+		/*
+		 * @abstract sel_vague_gift 模糊搜索礼品
+		 * @param $gift_name
+		 * @return array
+		 * @access public
+		 * */
+		public function sel_vague_gift($gift_name){
+			$sel_vague_gift_str = "select * from `ms_gift_info` where `name` like '%{$gift_name}%' limit 15";
+			$sel_vague_gift_res = $this->db->query($sel_vague_gift_str);
+			if($sel_vague_gift_res->num_rows() > 0){
+				return $sel_vague_gift_res->result_array();
 			}
 			return false;
 		}

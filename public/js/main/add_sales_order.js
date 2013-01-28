@@ -32,37 +32,117 @@ $(document).ready(function(){
 	//获取焦点事件
 	$("input[name='serial_number_temp']").focus(function(){
 		$(this).unbind("keyup");
-		$(this).keyup(function(){
-			//如果内容发生改变
-			if($(this).val() != ""){
-				serial_number = $(this).val();  //获取卡号内容
-				//调用AJAX查找
-				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
-					$("#sel_serial").css("display","block");
-					$("#sel_serial").html(data);
-				});
+		$(this).keyup(function(event){
+			if(event.keyCode == 40 || event.keyCode == 38){
+				//上下移动待开发
 			}else{
-				$("#sel_serial").css("display","none");
+				//如果内容发生改变
+				if($(this).val() != ""){
+					if(serial_number != $(this).val()){
+						serial_number = $(this).val();  //获取卡号内容
+						//调用AJAX查找
+						$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
+							$("#sel_serial").css("display","block");
+							$("#sel_serial").html(data);
+						});
+					}
+				}else{
+					serial_number = "";
+					$("#sel_serial").css("display","none");
+				}
 			}
+		});
+		$(this).click(function(){
+			serial_number = $("input[name='serial_number_temp']").val();
+			//调用AJAX查找
+			$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
+				$("#sel_serial").css("display","block");
+				$("#sel_serial").html(data);
+			});
 		});
 	});
 	//鼠标经过事件
 	$("li[name='sel_serial_li']").live("mouseenter",function(){
 		$(this).css("background","#F5F5F5");
 	});
-	//鼠标选中(单击)事件
-	$("li[name='sel_serial_li']").live("click",function(){
-		$("input[name='serial_number_temp']").val($(this).html());
-	});
 	//离开焦点事件
 	$("input[name='serial_number_temp']").blur(function(){
-		$("#sel_serial").css("display","none");
+		//鼠标选中(单击)事件
+		$("li[name='sel_serial_li']").live("click",function(){
+			var i = $(this).attr("lang");
+			$("input[name='serial_number_temp']").val($("span[name='serial_number_"+i+"']").html());
+			$("#sel_serial").css("display","none");
+			$(this).unbind("click");
+		});
+		$("input[name='serial_number_temp']").unbind("keyup click");
 	});
 	//鼠标滑开事件
 	$("li[name='sel_serial_li']").live("mouseleave",function(){
 		$(this).css("background","none");
 	});
+	/**************************此段代码，查找礼品也有共享******************************/
+	$(document).click(function(){
+		if($("#sel_serial").css("display") == "block"){
+			$("input[name='serial_number_temp']").unbind("keyup");
+			$("#sel_serial").css("display","none");
+		}
+	});
+	/*******************************************************************************/
 	//=======================================查找会员结束=======================================
+	
+	//=======================================查找礼品开始=======================================
+	var gift_name = "";
+	$("input[name='gift_temp']").focus(function(){
+		$(this).unbind("keyup");
+		$(this).keyup(function(event){
+			if(event.keyCode == 40 || event.keyCode == 38){
+				//上下移动待开发
+			}else{
+				//如果内容发生改变
+				if($(this).val() != ""){
+					if(gift_name != $(this).val()){
+						gift_name = $(this).val();  //获取卡号内容
+						//调用AJAX查找
+						$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
+							$("#sel_gift").css("display","block");
+							$("#sel_gift").html(data);
+						});
+					}
+				}else{
+					gift_name = "";
+					$("#sel_gift").css("display","none");
+				}
+			}
+		});
+		$(this).click(function(){
+			gift_name = $("input[name='gift_temp']").val();
+			//调用AJAX查找
+			$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
+				$("#sel_gift").css("display","block");
+				$("#sel_gift").html(data);
+			});
+		});
+	});
+	//鼠标经过事件
+	$("li[name='sel_gift_li']").live("mouseenter",function(){
+		$(this).css("background","#F5F5F5");
+	});
+	//离开焦点事件
+	$("input[name='gift_temp']").blur(function(){
+		//鼠标选中(单击)事件
+		$("li[name='sel_gift_li']").live("click",function(){
+			var i = $(this).attr("lang");
+			$("input[name='gift_temp']").val($("span[name='gift_name_"+i+"']").html());
+			$("#sel_gift").css("display","none");
+			$(this).unbind("click");
+		});
+		$("input[name='gift_temp']").unbind("keyup click");
+	});
+	//鼠标滑开事件
+	$("li[name='sel_gift_li']").live("mouseleave",function(){
+		$(this).css("background","none");
+	});
+	//=======================================查找礼品结束=======================================
 	
 	
 	//添加商品单击事件

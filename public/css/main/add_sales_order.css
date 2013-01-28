@@ -141,7 +141,7 @@
 	background:url(../../images/main/submit_2.jpg) no-repeat left top;
 }
 
-/*查找会员*/
+/**********************查找会员**********************/
 #sel_serial{
 	position:absolute;
 	left:457px;
@@ -149,7 +149,6 @@
 	margin:0px;
 	padding:0px;
 	border:1px solid #999;
-	border-top:none;
 	background:#fff;
 	display:none;
 }
@@ -159,12 +158,42 @@
 }
 
 #sel_serial ul li{
-	height:15px;
+	height:18px;
 	margin:0px;
 	cursor:pointer;
 }
 
 #sel_serial ul li span{
 	margin-left:3px;
-	line-height:15px;
+	line-height:18px;
 }
+/**********************查找会员End**********************/
+
+/**********************查找会员**********************/
+#sel_gift{
+	position:absolute;
+	left:637px;
+	top:108px;
+	margin:0px;
+	padding:0px;
+	border:1px solid #999;
+	background:#fff;
+	display:none;
+	width:127px;
+}
+
+#sel_gift ul{
+	height:auto;
+}
+
+#sel_gift ul li{
+	height:18px;
+	margin:0px;
+	cursor:pointer;
+}
+
+#sel_gift ul li span{
+	margin-left:3px;
+	line-height:18px;
+}
+/**********************查找会员End**********************/

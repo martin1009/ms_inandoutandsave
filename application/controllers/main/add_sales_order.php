@@ -18,7 +18,7 @@
 			$this->load->view("main/add_sales_order",$sales_data);
 		}
 		/*
-		 * @abstract sel_serial 查找会员
+		 * @abstract sel_serial 查找会员(AJAX用)
 		 * @access public
 		 * */
 		public function sel_serial(){
@@ -28,12 +28,34 @@
 			//模糊搜索
 			$serial_res = $this->add_sales_order_model->sel_vague_serial($serial_number);
 			if($serial_res != false){
+				$i = 0;
 				foreach($serial_res as $serial){
 					echo "<ul>";
-					echo "<li name='sel_serial_li'><span name='serial_number'>{$serial['serial_number']}</span>&nbsp;&nbsp;<span name='name'>{$serial['name']}</span></li>";
+					echo "<li name='sel_serial_li' lang='{$i}'><span name='serial_number_{$i}'>{$serial['serial_number']}</span>&nbsp;&nbsp;<span name='name'>{$serial['name']}</span></li>";
 					echo "</ul>";
+					$i++;
 				}
 			}
+		}
+		/*
+		 * @abstract sel_gift 查找礼品(AJAX用)
+		 * @access public
+		 * */
+		public function sel_gift(){
+			$this->load->model("main/add_sales_order_model");
+			//获取数据
+			$gift_name = $this->input->post("gift_name");
+			//模糊搜索
+			$gift_res = $this->add_sales_order_model->sel_vague_gift($gift_name);
+			if($gift_res != false){
+				$i = 0;
+				foreach($gift_res as $gift){
+					echo "<ul>";
+					echo "<li name='sel_gift_li' lang='{$i}'><span name='gift_name_{$i}'>{$gift['name']}</span>&nbsp;&nbsp;<span name='number'>{$gift['number']}</span></li>";
+					echo "</ul>";
+					$i++;
+				}
+				}
 		}
 	}
 ?>

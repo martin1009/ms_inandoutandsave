@@ -113,10 +113,15 @@ for(i=0;i<cs.length;i++){
 	          					<li>会员卡号：<!-- 临时域 --><input type='text' name='serial_number_temp' class='input_1' /><!-- 提交的隐藏域 --><input type='hidden' name='serial_number' /></li>
 	          					<li id="sel_serial">
 	          						<ul>
-	          							<li name="sel_serial_li"><span>55555</span></li>
+	          							<li name="sel_serial_li"><span></span></li>
 	          						</ul>
 	          					</li>
-	          					<li>礼　品：<input type='text' class='input_1' /></li>
+	          					<li>礼　品：<!-- 临时域 --><input type='text' name='gift_temp' class='input_1' /><!-- 提交的隐藏域 --><input type='hidden' name='gift' /></li>
+	          					<li id="sel_gift">
+	          						<ul>
+	          							<li name="sel_gift_li"><span></span></li>
+	          						</ul>
+	          					</li>
 	          				</ul>
 	          				<ul>
 	          					<li>备　　注：<input type='text' name='remark' class='input_3' /></li>
@@ -137,7 +142,7 @@ for(i=0;i<cs.length;i++){
           				<div class="div_content_1">
           					<table class="table_1" cellspacing="0">
           						<tr>
-          							<th style='width:40px;'>编号</th><th>商品编号</th><th>商品名称</th><th>品牌</th><th>货号</th><th>颜色</th><th>尺码</th><th>进价</th><th>数量</th><th>进货价</th><th>删除</th>
+          							<th style='width:40px;'>编号</th><th>商品编号</th><th>商品名称</th><th>品牌</th><th>货号</th><th>颜色</th><th>尺码</th><th>数量</th><th>吊牌价</th><th>删除</th>
           						</tr>
           						<tr id="tick_tr" style="display:none;"></tr>
           					</table>
