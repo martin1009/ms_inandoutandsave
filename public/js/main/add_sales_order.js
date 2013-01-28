@@ -48,7 +48,7 @@ $(document).ready(function(){
 	});
 	//鼠标经过事件
 	$("li[name='sel_serial_li']").live("mouseenter",function(){
-		$(this).css("background","#999999");
+		$(this).css("background","#F5F5F5");
 	});
 	//鼠标选中(单击)事件
 	$("li[name='sel_serial_li']").live("click",function(){
@@ -56,12 +56,7 @@ $(document).ready(function(){
 	});
 	//离开焦点事件
 	$("input[name='serial_number_temp']").blur(function(){
-		//鼠标选中(单击)事件
-		$("li[name='sel_serial_li']").live("click",function(){
-			$("input[name='serial_number_temp']").val($(this).html());
-			$("#sel_serial").css("display","none");
-		});
-		$("li[name='sel_serial_li']").unbind("click");
+		$("#sel_serial").css("display","none");
 	});
 	//鼠标滑开事件
 	$("li[name='sel_serial_li']").live("mouseleave",function(){
