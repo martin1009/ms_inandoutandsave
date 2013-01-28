@@ -116,7 +116,7 @@ for(i=0;i<cs.length;i++){
 	          							<li name="sel_serial_li"><span></span></li>
 	          						</ul>
 	          					</li>
-	          					<li>礼　品：<!-- 临时域 --><input type='text' name='gift_temp' class='input_1' /><!-- 提交的隐藏域 --><input type='hidden' name='gift' /></li>
+	          					<li>礼　品：<!-- 临时域 --><input type='text' name='gift_temp' class='input_1' /><!-- 提交的隐藏域 --><input type='hidden' name='gift_name' /></li>
 	          					<li id="sel_gift">
 	          						<ul>
 	          							<li name="sel_gift_li"><span></span></li>
@@ -129,7 +129,11 @@ for(i=0;i<cs.length;i++){
 	          								<?php
 	          									if($warehouse_res){
 	          										foreach($warehouse_res as $warehouse){
-	          											echo "<option value='{$warehouse['id']}'>{$warehouse['warehouse_name']}</option>";
+	          											if($warehouse['warehouse_type'] == 1 && $warehouse['warehouse_default'] == 1){
+	          												echo "<option value='{$warehouse['id']}' selected='selected'>{$warehouse['warehouse_name']}</option>";
+	          											}else{
+	          												echo "<option value='{$warehouse['id']}'>{$warehouse['warehouse_name']}</option>";
+	          											}
 	          										}
 	          									}else{
 	          										echo "<option value='0'>暂无仓库，请添加！</option>";
@@ -142,7 +146,7 @@ for(i=0;i<cs.length;i++){
           				<div class="div_content_1">
           					<table class="table_1" cellspacing="0">
           						<tr>
-          							<th style='width:40px;'>编号</th><th>商品编号</th><th>商品名称</th><th>品牌</th><th>货号</th><th>颜色</th><th>尺码</th><th>数量</th><th>吊牌价</th><th>删除</th>
+          							<th style='width:40px;'>编号</th><th>商品编号</th><th>商品名称</th><th>品牌</th><th>货号</th><th>颜色</th><th>尺码</th><th>单位</th><th>数量</th><th>吊牌价</th><th>删除</th>
           						</tr>
           						<tr id="tick_tr" style="display:none;"></tr>
           					</table>

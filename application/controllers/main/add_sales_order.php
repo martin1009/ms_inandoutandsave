@@ -55,7 +55,20 @@
 					echo "</ul>";
 					$i++;
 				}
-				}
+			}
+		}
+		/*
+		 * @abstract open_selection_commodity 选择商品页面
+		 * @access public
+		 * */
+		public function open_selection_commodity($commodity_number){
+			$commodity_number = urldecode($commodity_number);
+			$this->load->model("main/add_sales_order_model");
+			//模糊查询商品编号
+			$commodity_data = array(
+				"commodity_res" => $commodity_number == "-" ? $this->add_sales_order_model->sel_all_commodity($commodity_number) : $this->add_sales_order_model->sel_commodity_fuzzy_number($commodity_number)  //按商品编号模糊查询
+			);
+			$this->load->view("main/open_selection_commodity",$commodity_data);
 		}
 	}
 ?>

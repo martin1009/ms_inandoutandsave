@@ -82,9 +82,15 @@ $(document).ready(function(){
 	});
 	/**************************此段代码，查找礼品也有共享******************************/
 	$(document).click(function(){
+		//判断会员
 		if($("#sel_serial").css("display") == "block"){
 			$("input[name='serial_number_temp']").unbind("keyup");
 			$("#sel_serial").css("display","none");
+		}
+		//判断礼品
+		if($("#sel_gift").css("display") == "block"){
+			$("input[name='gift_temp']").unbind("keyup");
+			$("#sel_gift").css("display","none");
 		}
 	});
 	/*******************************************************************************/
@@ -151,7 +157,7 @@ $(document).ready(function(){
 		if(commodity_number == "请输入商品编号" || commodity_number == ""){
 			commodity_number = "-";
 		}
-		window.open($("#app_path").val()+"/main/add_storage_order/open_selection_commodity/"+commodity_number+"/"+Math.random(),"add_storage_order_open_selection_commodity","location=no,menubar=no,resizable=no,scrollbars=no,toolbar=no,width=800px,height=480px,left="+(($(parent.window).width()/2)-400)+"px,top="+(($(parent.parent.window).height()/2)-240)+"px");
+		window.open($("#app_path").val()+"/main/add_sales_order/open_selection_commodity/"+commodity_number+"/"+Math.random(),"add_storage_order_open_selection_commodity","location=no,menubar=no,resizable=no,scrollbars=no,toolbar=no,width=800px,height=480px,left="+(($(parent.window).width()/2)-400)+"px,top="+(($(parent.parent.window).height()/2)-240)+"px");
 	});
 	
 	//提交订单
@@ -190,6 +196,9 @@ $(document).ready(function(){
 		//把会员卡号内容复制到隐藏域中（防止input框缓存）
 		$("input[name='serial_number']").val($("input[name='serial_number_temp']").val());
 		$("input[name='serial_number_temp']").val("")
+		//把礼品内容复制到隐藏域中（防止input框缓存）
+		$("input[name='gift_name']").val($("input[name='gift_temp']").val());
+		$("input[name='gift_temp']").val("")
 		//提交表单
 		$("form[name='add_storage_order_form']").submit();
 	});
