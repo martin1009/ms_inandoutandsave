@@ -4,7 +4,7 @@
 <title>选择商品</title>
 <script charset="utf-8" src="<?=base_url("public/js/jquery.js");?>"></script>
 <script charset="utf-8" src="<?=base_url("public/js/date.js");?>"></script>
-<script charset="utf-8" src="<?=base_url("public/js/main/open_selection_commodity.js");?>"></script>
+<script charset="utf-8" src="<?=base_url("public/js/main/open_sales_commodity.js");?>"></script>
 <link rel="stylesheet" type="text/css" href="<?=base_url("public/css/main/open_selection_commodity.css");?>" />
 <style type="text/css">
 <!--
@@ -120,11 +120,11 @@ for(i=0;i<cs.length;i++){
 	          								echo "<td style='text-align:center;'><input type='radio' name='state' id='state_{$commodity['id']}' value='{$commodity['id']}' /></td>";  //状态
 	          								echo "<td style='text-align:center;' id='commodity_number_{$commodity['id']}'>{$commodity['commodity_number']}</td>";  //商品编号
 	          								echo "<td id='commodity_name_{$commodity['id']}'>{$commodity['commodity_name']}</td>";  //商品名称
-	          								echo "<td style='text-align:center;' id='dan_wei_{$commodity['id']}'>{$commodity['dan_wei']}</td>";  //单位
 	          								echo "<td id='brand_{$commodity['id']}'>{$commodity['brand']}</td>";  //品牌
 	          								echo "<td style='text-align:right;' id='commodity_serial_number_{$commodity['id']}'>{$commodity['commodity_serial_number']}</td>";  //货号
 	          								echo "<td id='commodity_color_{$commodity['id']}'>{$commodity['commodity_color']}</td>";  //颜色
 	          								echo "<td style='text-align:right;' id='commodity_size_{$commodity['id']}'>{$commodity['commodity_size']}</td>";  //尺码
+	          								echo "<td style='text-align:center;' id='dan_wei_{$commodity['id']}'>{$commodity['dan_wei']}</td>";  //单位
 	          								echo "<td style='text-align:right;' id='tag_price_{$commodity['id']}'>{$commodity['tag_price']}</td>";  //吊牌价
 // 	          								echo "<td style='text-align:right;'>{$commodity['inventory_number']}</td>";  //库存
 	          								echo "</tr>";

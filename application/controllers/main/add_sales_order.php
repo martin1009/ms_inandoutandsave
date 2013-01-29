@@ -68,7 +68,7 @@
 			$commodity_data = array(
 				"commodity_res" => $commodity_number == "-" ? $this->add_sales_order_model->sel_all_commodity($commodity_number) : $this->add_sales_order_model->sel_commodity_fuzzy_number($commodity_number)  //按商品编号模糊查询
 			);
-			$this->load->view("main/open_selection_commodity",$commodity_data);
+			$this->load->view("main/open_sales_commodity",$commodity_data);
 		}
 	}
 ?>
