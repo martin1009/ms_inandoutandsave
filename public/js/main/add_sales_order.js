@@ -151,6 +151,36 @@ $(document).ready(function(){
 	//=======================================查找礼品结束=======================================
 	
 	
+	//计算数量，总价，整单数量和整单金额
+	$("input[name='num[]']").live("blur",function(){
+		var id = $(this).attr("id");  //获取当前行的ID号
+		id = id.match(/\d+/);
+		var tag_price = parseFloat($("#tag_price_"+id).val());  //获取当前行的吊牌价
+		var num = parseInt($(this).val());  //获取数量
+		$("#total_"+id).html(tag_price*num);  //当前行的总价
+		
+		//整单数量
+		var order_num = 0;
+		$("input[name='num[]']").each(function(){
+			var num = $(this).val();
+			num = num.match(/^\d+$/);
+			if(num != false){
+				order_num += parseInt(num);
+			}
+		});
+		$("input[name='commodity_num']").val(order_num);
+		//整单金额
+		var order_price = 0;
+		$("td[name='total']").each(function(){
+			var price = $(this).html();
+			price = price.match(/^\d+\.?\d+$/);
+			if(price != false){
+				order_price += parseFloat(price);
+			}
+		});
+		$("input[name='total_price']").val(order_price);
+	});
+	
 	//添加商品单击事件
 	$("#add_commodity").click(function(){
 		var commodity_number = $("input[name='commodity_number']").val();
