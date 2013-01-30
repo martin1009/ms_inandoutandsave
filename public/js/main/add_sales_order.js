@@ -150,34 +150,20 @@ $(document).ready(function(){
 	});
 	//=======================================查找礼品结束=======================================
 	
-	//删除指定行
-	$("a[name='del_commodity']").live("click",function(){
-		if(confirm("您确定要删除此行吗？")){
-			var id = $(this).attr("id");
-			id = id.match(/\d+/);
-			$("#"+id).remove();
-			if($("tr[name='content_tr']").length < 1){
-				$("input[name='commodity_num']").val("");  //商品总数清空
-				$("input[name='total_price']").val("");  //整单金额清空
-			}else{
-				$("input[name='num[]']").blur();
-			}
-		}
-	});
 	
 	//计算数量，总价，整单数量和整单金额
-	$("input[name='num[]'],input[name='tag_price[]']").live("blur",function(){
+	$("input[name='num[]']").live("blur",function(){
 		var id = $(this).attr("id");  //获取当前行的ID号
 		id = id.match(/\d+/);
-		var tag_price = parseFloat($("#tag_price_"+id).val()) ? parseFloat($("#tag_price_"+id).val()) : 0;  //获取当前行的吊牌价
-		var num = parseInt($("#num_"+id).val()) ? parseInt($("#num_"+id).val()) : 0;  //获取数量
-		$("#total_"+id).html(tag_price*num ? tag_price*num : "");  //当前行的总价
+		var tag_price = parseFloat($("#tag_price_"+id).val());  //获取当前行的吊牌价
+		var num = parseInt($(this).val());  //获取数量
+		$("#total_"+id).html(tag_price*num);  //当前行的总价
 		
 		//整单数量
 		var order_num = 0;
 		$("input[name='num[]']").each(function(){
 			var num = $(this).val();
-			num = num.match(/^\d+$/) ? num.match(/^\d+$/) : 0;
+			num = num.match(/^\d+$/);
 			if(num != false){
 				order_num += parseInt(num);
 			}
