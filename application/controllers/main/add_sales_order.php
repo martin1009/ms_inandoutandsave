@@ -70,5 +70,36 @@
 			);
 			$this->load->view("main/open_sales_commodity",$commodity_data);
 		}
+		/*
+		 * @abstract sel_number_commodity 能过编号查找商品(ajax用)
+		 * @return string
+		 * @access public
+		 * */
+		public function sel_number_commodity(){
+			$this->load->model("main/add_sales_order_model");
+			//获取数据
+			$commodity_number = $this->input->post("commodity_number");
+			$commodity = $this->add_sales_order_model->sel_number_commodity($commodity_number);
+			if($commodity == "0"){
+				echo "0";
+			}else if($commodity == "1"){
+				echo "1";
+			}else{
+				$commodity_str = "<tr name='content_tr' id='{$commodity->id}'>";
+				$commodity_str .= "<td align='center'></td>";
+				$commodity_str .= "<td>{$commodity->commodity_number}</td>";  //商品编号
+				$commodity_str .= "<td>{$commodity->commodity_name}</td>";  //商品名称
+				$commodity_str .= "<td>{$commodity->brand}</td>";  //品牌
+				$commodity_str .= "<td>{$commodity->commodity_color}</td>";  //颜色
+				$commodity_str .= "<td>{$commodity->commodity_size}</td>";  //尺码
+				$commodity_str .= "<td>{$commodity->dan_wei}</td>";  //单位
+				$commodity_str .= "<td style='width:65px;padding:0px;'><input type='hidden' name='commodity_id[]' value='{$commodity->id}' /><input type='text' class='input_6' id='num_{$commodity->id}' name='num[]' /></td>";  //数量
+				$commodity_str .= "<td style='width:65px;padding:0px;'><input type='text' class='input_6' id='tag_price_{$commodity->id}' value='{$commodity->tag_price}' name='tag_price[]' /></td>";  //吊牌价
+				$commodity_str .= "<td name='total' id='total_{$commodity->id}' align='right'>&nbsp;</td>";  //总价
+				$commodity_str .= "<td align='center'><a href='javascript:void();' name='del_commodity' id='del_{$commodity->id}'>删除</a></td>";
+				$commodity_str .= "</tr>";
+				echo $commodity_str;
+			}
+		}
 	}
 ?>

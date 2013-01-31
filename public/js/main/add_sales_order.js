@@ -13,10 +13,22 @@
 	
 	//商品编号框单击事件
 	$("input[name='commodity_number']").click(function(){
+		//控制文字
 		if($(this).val() == "请输入商品编号"){
 			$(this).val("");  //清空文本框
 			$(this).css("color","#000000");  //设置文字颜色
 		}
+		//捕捉回车
+		$(this).unbind("keyup");
+		$(this).keyup(function(event){
+			if(event.keyCode == 13){
+				var commodity_number = $("input[name='commodity_number']").val();
+				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_number_commodity/"+Math.random(),{commodity_number: commodity_number},function(data){
+					$("#tick_tr").before(data);
+				});
+				$("input[name='commodity_number']").blur();
+			}
+		});
 	});
 	
 	//商品编号框失去焦点事件
@@ -179,17 +191,17 @@
 		$("input[name='num[]']").each(function(){
 			var num = $(this).val();
 			num = num.match(/^\d+$/);
-			if(num != false){
+			if(num != null){
 				order_num += parseInt(num);
 			}
 		});
-		$("input[name='commodity_num']").val(order_num);
+		$("input[name='commodity_num']").val(order_num ? order_num : "");
 		//整单金额
 		var order_price = 0;
 		$("td[name='total']").each(function(){
 			var price = $(this).html();
 			price = price.match(/^\d+\.?\d+$/);
-			if(price != false){
+			if(price != null){
 				order_price += parseFloat(price);
 			}
 		});

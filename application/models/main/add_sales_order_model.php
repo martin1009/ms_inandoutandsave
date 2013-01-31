@@ -48,11 +48,30 @@
 			return false;
 		}
 		/*
+		 * @abstract sel_number_commodity 按商品编号直接查询
+		 * @param $commodity_number 商品编号
+		 * @return array 商品数组
+		 * @access public
+		 * */
+		public function sel_number_commodity($commodity_number){
+			$sel_commodity_str = "select * from `ms_commodity_information` where `commodity_number` = '{$commodity_number}'";
+			$sel_commodity_res = $this->db->query($sel_commodity_str);
+			if($sel_commodity_res->num_rows() > 0){
+				if($sel_commodity_res->num_rows() == 1){
+					return $sel_commodity_res->row();
+				}else{
+					return "1";
+				}
+			}else{
+				return "0";
+			}
+		}
+		/*
 		 * @abstract sel_commodity_fuzzy_number 按商品编号模糊查询
-		* @param $commodity_number 商品编号
-		* @return array 商品数组
-		* @access public
-		* */
+		 * @param $commodity_number 商品编号
+		 * @return array 商品数组
+		 * @access public
+		 * */
 		public function sel_commodity_fuzzy_number($commodity_number){
 			$sel_commodity_str = "select * from `ms_commodity_information` where `commodity_number` like '%{$commodity_number}%' order by `id` desc";
 			$sel_commodity_res = $this->db->query($sel_commodity_str);
@@ -63,9 +82,9 @@
 		}
 		/*
 		 * @abstract sel_all_commodity 查找所有商品及库存
-		* @return array 商品及库存数组
-		* @access public
-		* */
+		 * @return array 商品及库存数组
+		 * @access public
+		 * */
 		public function sel_all_commodity(){
 			$sel_commodity_str = "select * from `ms_commodity_information` order by `id` desc";
 			$sel_commodity_res = $this->db->query($sel_commodity_str);
