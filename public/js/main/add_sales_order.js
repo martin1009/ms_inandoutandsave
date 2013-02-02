@@ -11,6 +11,18 @@
 		new Calendar().show(this);
 	});
 	
+	//监控F4键（结算）
+	$(document).keyup(function(event){
+		if(event.keyCode == "115"){
+			$("input[name='settle_accounts']").click();
+		}
+	});
+	
+	//结算
+	$("input[name='settle_accounts']").click(function(){
+		alert("结算");
+	});
+	
 	//商品编号框单击事件
 	$("input[name='commodity_number']").click(function(){
 		//控制文字

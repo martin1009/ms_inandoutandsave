@@ -162,7 +162,8 @@ for(i=0;i<cs.length;i++){
           			</form>
           		</div>
           		<div class="div_bottom">
-          			<input type="submit" name="storage_submit" class="submit_1" value="提交入库单" />
+          			<input type="submit" name="settle_accounts" class="submit_1" value="结 算(F4)" />
+          			<input type="submit" name="storage_submit" class="submit_1" value="提交销售单" />
           		</div>
           	</td>
           </tr>
