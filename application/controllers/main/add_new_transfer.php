@@ -30,6 +30,7 @@
 			);
 			//模糊查询商品编号
 			$commodity_data = array(
+				"out_warehouse_id" => $warehouse_data['out_warehouse_id'],
 				"out_warehouse_name" => $this->add_new_transfer_model->sel_out_warehouse_name($warehouse_data),  //出货仓库名称
 				"commodity_res" => $commodity_number == "-" ? $this->add_new_transfer_model->sel_all_commodity($warehouse_data) : $this->add_new_transfer_model->sel_commodity_fuzzy_number($commodity_number,$warehouse_data)  //按商品编号模糊查询
 			);
@@ -40,9 +41,6 @@
 		 * @access public
 		 * */
 		public function add_order(){
-// 			echo "<pre>";
-// 			print_r($_POST);
-// 			echo "</pre>";
 			$this->load->library("form_validation");
 			$this->load->model("main/add_new_transfer_model");
 			//防空验证
@@ -50,8 +48,6 @@
 			$this->form_validation->set_rules("transfer_date","日期","trim|required");
 			$this->form_validation->set_rules("out_warehouse_id","出货仓库","trim|required");
 			$this->form_validation->set_rules("in_warehouse_id","入货仓库","trim|required");
-// 			$this->form_validation->set_result("commodity_id","商品","trim|required");
-// 			$this->form_validation->set_result("num","数量","trim|required");
 			$this->form_validation->set_message("required","%s不能为空！");
 			if($this->form_validation->run()){
 				//获取调库单基本数据
@@ -118,6 +114,39 @@
 					"time" => 3
 				);
 				$this->load->view("prompt/error",$error_data);
+			}
+		}
+		
+		/*
+		 * @abstract ajax_sel_commodity 模糊查找商品
+		* @access public
+		* */
+		public function ajax_sel_commodity(){
+			$this->load->model("main/add_new_transfer_model");
+			//获取数据
+			$commodity_number = $this->input->post("commodity_number");
+			$warehouse_data['out_warehouse_id'] = $this->input->post("out_warehouse_id");
+			$out_warehouse_name = $this->input->post("out_warehouse_name");
+ 			if($commodity_res = $this->add_new_transfer_model->sel_commodity_fuzzy_number($commodity_number,$warehouse_data)){
+				foreach($commodity_res as $commodity){
+					echo "<tr name='tr_state' id='tr_{$commodity['id']}'>";
+					echo "<td style='text-align:center;'><input type='radio' name='state' id='state_{$commodity['id']}' value='{$commodity['id']}' /></td>";  //状态
+					echo "<td style='text-align:center;' id='commodity_number_{$commodity['id']}'>{$commodity['commodity_number']}</td>";  //商品编号
+					echo "<td id='commodity_name_{$commodity['id']}'>{$commodity['commodity_name']}</td>";  //商品名称
+					echo "<td style='text-align:center;' id='dan_wei_{$commodity['id']}'>{$commodity['dan_wei']}</td>";  //单位
+					echo "<td id='brand_{$commodity['id']}'>{$commodity['brand']}</td>";  //品牌
+					echo "<td style='text-align:right;' id='commodity_serial_number_{$commodity['id']}'>{$commodity['commodity_serial_number']}</td>";  //货号
+					echo "<td id='commodity_color_{$commodity['id']}'>{$commodity['commodity_color']}</td>";  //颜色
+					echo "<td style='text-align:right;' id='commodity_size_{$commodity['id']}'>{$commodity['commodity_size']}</td>";  //尺码
+					echo "<td style='text-align:right;' id='commodity_size_{$commodity['id']}'>{$out_warehouse_name}</td>";  //出货仓库
+					echo "<td style='text-align:right;' id='commodity_size_{$commodity['id']}'>{$commodity['inventory_number']}</td>";  //库存数量
+// 					echo "<td style='text-align:right;' id='tag_price_{$commodity['id']}'>{$commodity['tag_price']}</td>";  //吊牌价
+					echo "</tr>";
+				}
+			}else{
+				echo "<tr>";
+				echo "<td colspan='10' align='center'>没有找到此商品！</td>";
+				echo "</tr>";
 			}
 		}
 	}

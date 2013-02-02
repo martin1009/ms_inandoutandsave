@@ -6,7 +6,7 @@ $(document).ready(function(){
 			input_content = $(this).val();
 			//清空选择商品表格
 			$("#commodity_table").html("<tr id='storage_tr'>"+$("#storage_tr").html()+"</tr>");
-			$.post($("#app_path").val()+"/main/add_storage_order/ajax_sel_commodity/"+Math.random(),{commodity_number: $(this).val()},function(data){
+			$.post($("#app_path").val()+"/main/add_new_transfer/ajax_sel_commodity/"+Math.random(),{commodity_number: $(this).val(),out_warehouse_id:$("#out_warehouse_id").val(),out_warehouse_name:$("#out_warehouse_name").val()},function(data){
 				$("#storage_tr").after(data);
 			});
 		}

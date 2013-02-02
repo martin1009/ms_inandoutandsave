@@ -24,6 +24,13 @@
 			if(event.keyCode == 13){
 				var commodity_number = $("input[name='commodity_number']").val();
 				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_number_commodity/"+Math.random(),{commodity_number: commodity_number},function(data){
+					if(data = "1"){
+						alert("找到多条商品，检查商品编号！");
+						return false;
+					}else if(data = "0"){
+						alert("没有找到相关商品，检查商品编号！");
+						return false;
+					}
 					$("#tick_tr").before(data);
 				});
 				$("input[name='commodity_number']").blur();

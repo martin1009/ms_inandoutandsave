@@ -104,6 +104,10 @@ for(i=0;i<cs.length;i++){
           			<!-- 项目地址 -->
           			<input type='hidden' value='<?=site_url();?>' id='app_path' />
           			<!-- 项目地址End -->
+          			<!-- 出货仓库 -->
+          			<input type="hidden" value="<?=$out_warehouse_id;?>" id="out_warehouse_id" />
+          			<input type="hidden" value="<?=$out_warehouse_name;?>" id="out_warehouse_name" />
+          			<!-- 出货仓库End -->
           			<div class="div_content">
           				<div class="div_content_top">
           					<span>商品编号：<input type="text" name="commodity_number" /></span>
