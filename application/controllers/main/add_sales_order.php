@@ -101,5 +101,15 @@
 				echo $commodity_str;
 			}
 		}
+		/*
+		 * @abstract open_settle_accounts 结算弹出窗口
+		 * @access public
+		 * */
+		public function open_settle_accounts($total_price){
+			$settle_data = array(
+				"total_price" => $total_price
+			);
+			$this->load->view("main/open_settle_accounts",$settle_data);
+		}
 	}
 ?>

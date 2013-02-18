@@ -20,7 +20,35 @@
 	
 	//结算
 	$("input[name='settle_accounts']").click(function(){
-		alert("结算");
+		if($("input[name='total_price']").val() == ""){
+			alert("请填写商品单价或数量！");
+			return false;
+		}
+		//数量防空验证
+		$num_bool = false;
+		$("input[name='num[]']").each(function(){
+			if($(this).val() == ""){
+				$num_bool = true;
+				return false;
+			}
+		});
+		if($num_bool){
+			alert("请将商品数量填写完整！");
+			return false;
+		}
+		//单价防空验证
+		$price_bool = false;
+		$("input[name='tag_price[]']").each(function(){
+			if($(this).val() == ""){
+				$price_bool = true;
+				return false;
+			}
+		});
+		if($price_bool){
+			alert("请将商品单价填写完整！");
+			return false;
+		}
+		window.open($("input[name='app_path']").val()+"/main/add_sales_order/open_settle_accounts/"+$("input[name='total_price']").val()+"/"+Math.random(),"open_settle_accounts","resizable=no,scrollbars=no,status=no,toolbar=no,width=355,height=225");
 	});
 	
 	//商品编号框单击事件

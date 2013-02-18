@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+*{
+	font-size:12px;
+	margin:0px;
+	padding:0px;
+}
+
+body{
+	background:#f3ffe3;
+}
+
+.div_1{
+	height:40px;
+	text-align:center;
+	margin-top:10px;
+}
+
+.span_1{
+	font-size:25px;
+	font-weight:bold;
+}
+
+.div_2{
+	height:40px;
+	margin-left:15px;
+}
+
+.span_2{
+	font-size:18px;
+}
+
+.input_1{
+	height:25px;
+	width:200px;
+	font-size:18px;
+}
+
+.submit_1{
+	width:85px;
+	height:28px;
+	border:none;
+	cursor:pointer;
+	background:url(../../images/main/submit_2.jpg) no-repeat left top;
+}
+
+.div_bottom{
+	text-align:center;
+}
