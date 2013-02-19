@@ -11,10 +11,15 @@
 		new Calendar().show(this);
 	});
 	
-	//监控F4键（结算）
+	//监控F4键（结算）和回车键（提交）
 	$(document).keyup(function(event){
+		//F4
 		if(event.keyCode == "115"){
 			$("input[name='settle_accounts']").click();
+		}
+		//回车
+		if(event.keyCode == "13"){
+			$("input[name='storage_submit']").click();
 		}
 	});
 	
@@ -48,7 +53,8 @@
 			alert("请将商品单价填写完整！");
 			return false;
 		}
-		window.open($("input[name='app_path']").val()+"/main/add_sales_order/open_settle_accounts/"+$("input[name='total_price']").val()+"/"+Math.random(),"open_settle_accounts","resizable=no,scrollbars=no,status=no,toolbar=no,width=355,height=225");
+		window.open($("#app_path").val()+"/main/add_sales_order/open_settle_accounts/"+$("input[name='total_price']").val()+"/"+Math.random(),"open_settle_accounts","resizable=no,scrollbars=no,status=no,toolbar=no,width=355,height=225");
+		return false;
 	});
 	
 	//商品编号框单击事件
@@ -63,7 +69,7 @@
 		$(this).keyup(function(event){
 			if(event.keyCode == 13){
 				var commodity_number = $("input[name='commodity_number']").val();
-				$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_number_commodity/"+Math.random(),{commodity_number: commodity_number},function(data){
+				$.post($("#app_path").val()+"/main/add_sales_order/sel_number_commodity/"+Math.random(),{commodity_number: commodity_number},function(data){
 					if(data = "1"){
 						alert("找到多条商品，检查商品编号！");
 						return false;
@@ -100,7 +106,7 @@
 					if(serial_number != $(this).val()){
 						serial_number = $(this).val();  //获取卡号内容
 						//调用AJAX查找
-						$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
+						$.post($("#app_path").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
 							$("#sel_serial").css("display","block");
 							$("#sel_serial").html(data);
 						});
@@ -114,7 +120,7 @@
 		$(this).click(function(){
 			serial_number = $("input[name='serial_number_temp']").val();
 			//调用AJAX查找
-			$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
+			$.post($("#app_path").val()+"/main/add_sales_order/sel_serial/"+Math.random(),{serial_number: serial_number},function(data){
 				$("#sel_serial").css("display","block");
 				$("#sel_serial").html(data);
 			});
@@ -168,7 +174,7 @@
 					if(gift_name != $(this).val()){
 						gift_name = $(this).val();  //获取卡号内容
 						//调用AJAX查找
-						$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
+						$.post($("#app_path").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
 							$("#sel_gift").css("display","block");
 							$("#sel_gift").html(data);
 						});
@@ -182,7 +188,7 @@
 		$(this).click(function(){
 			gift_name = $("input[name='gift_temp']").val();
 			//调用AJAX查找
-			$.post($("input[name='app_path']").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
+			$.post($("#app_path").val()+"/main/add_sales_order/sel_gift/"+Math.random(),{gift_name: gift_name},function(data){
 				$("#sel_gift").css("display","block");
 				$("#sel_gift").html(data);
 			});
@@ -295,6 +301,9 @@
 			}
 		});
 		if(!num){
+			return false;
+		}
+		if(!confirm("确定要提交此销售单吗？")){
 			return false;
 		}
 		//把会员卡号内容复制到隐藏域中（防止input框缓存）

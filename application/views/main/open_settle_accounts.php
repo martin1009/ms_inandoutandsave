@@ -16,10 +16,11 @@
 			<span class="span_2">实收金额：</span><input type="text" class="input_1" name="paid_in_amount" />
 		</div>
 		<div class="div_2">
-			<span class="span_2">找　　零：</span><input type="text" class="input_1" name="give_change" />
+			<span class="span_2">找　　零：</span><input type="text" class="input_1" name="give_change" readonly="readonly" />
 		</div>
 		<div class="div_bottom">
           	<input type="submit" name="submit" class="submit_1" value="确定(Enter)" />
+          	<input type="submit" name="esc" class="submit_1" value="取消(Esc)" />
         </div>
 	</body>
 </html>

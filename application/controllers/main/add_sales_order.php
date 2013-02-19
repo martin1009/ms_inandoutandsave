@@ -111,5 +111,14 @@
 			);
 			$this->load->view("main/open_settle_accounts",$settle_data);
 		}
+		/*
+		 * @abstract add_order 添加销售单
+		 * @access public
+		 * */
+		public function add_order(){
+			echo "<pre>";
+			print_r($_POST);
+			echo "</pre>";
+		}
 	}
 ?>

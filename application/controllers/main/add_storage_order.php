@@ -65,10 +65,6 @@
 		 * @access public
 		 * */
 		public function add_order(){
-// 			echo "<pre>";
-// 			print_r($_POST);
-// 			echo "</pre>";
-// 			die();
 			$this->load->model("main/add_storage_order_model");
 			$this->load->library("form_validation");
 			//防空验证

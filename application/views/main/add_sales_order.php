@@ -96,15 +96,14 @@ for(i=0;i<cs.length;i++){
         <td bgcolor="#f3ffe3"><table width="99%" border="0" align="center" cellpadding="0" cellspacing="1">
           <tr>
           	<td bgcolor="#f3ffe3">
-          		<input type="hidden" id="app_path" value="<?=site_url();?>" />
+          		<form name="add_storage_order_form" action="<?=site_url("main/add_sales_order/add_order");?>" method="post">
           		<div class="div_1">
           			<div class="div_title">
           				<span>新增销售单</span>
           			</div>
           			<!-- app_path -->
-          			<input type="hidden" value="<?=site_url();?>" name="app_path" />
+          			<input type="hidden" id="app_path" value="<?=site_url();?>" />
           			<!-- app_path End -->
-          			<form name="add_storage_order_form" action="<?=site_url("main/add_storage_order/add_order");?>" method="post">
           			<div class="div_content">
           				<div class="div_content_title">
 	          				<ul>
@@ -159,12 +158,14 @@ for(i=0;i<cs.length;i++){
           					</div>
           				</div>
           			</div>
-          			</form>
           		</div>
           		<div class="div_bottom">
-          			<input type="submit" name="settle_accounts" class="submit_1" value="结 算(F4)" />
-          			<input type="submit" name="storage_submit" class="submit_1" value="提交(Enter)" />
+          			<!-- 结算方式 -->
+          			<input type="hidden" name="mode" value="" />
+          			<input type="button" name="settle_accounts" class="submit_1" value="结 算(F4)" />
+          			<input type="button" name="storage_submit" class="submit_1" value="提交(Enter)" />
           		</div>
+          		</form>
           	</td>
           </tr>
         </table></td>

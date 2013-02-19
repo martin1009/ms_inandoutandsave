@@ -44,9 +44,9 @@
 				}else{
 					//登陆失败
 					$error_data = array(
-							"content" => "用户名或密码错误！",  //所有错误信息
-							"url" => site_url("login/login"),  //跳转地址
-							"time" => 3  //等待秒数
+						"content" => "用户名或密码错误！",  //所有错误信息
+						"url" => site_url("login/login"),  //跳转地址
+						"time" => 3  //等待秒数
 					);
 					$this->load->view("prompt/error",$error_data);
 				}
